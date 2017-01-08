@@ -1,6 +1,6 @@
 #include <iostream>
 
-#inlcude "BallenDevBST.h"
+#include "BallenDevBST.h"
 
 using namespace std;
 

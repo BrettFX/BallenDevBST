@@ -1,4 +1,4 @@
-#inlcude "BallenDevBST.h"
+#include "BallenDevBST.h"
 
 BallenDevBST::BallenDevBST()
 {

@@ -1,6 +1,8 @@
 #ifndef BALLENDEVBST_H_
 #define BALLENDEVBST_H_
 
+#include <iostream>
+
 class BallenDevBST
 {
 	private:
