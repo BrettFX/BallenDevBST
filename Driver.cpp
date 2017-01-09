@@ -69,6 +69,10 @@ void renderChoice(int choice, BallenDevBST& bst)
 			break;
 			
 		case REMOVE:
+			bst.inOrder();
+			cout << "\n\nEnter the key for the leaf node to be deleted: ";
+			cin >> input;
+			bst.remove(input);
 			break;
 			
 		case IN_ORDER:

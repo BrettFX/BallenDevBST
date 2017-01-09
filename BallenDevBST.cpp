@@ -57,7 +57,27 @@ void BallenDevBST::insertLeaf(int key, BallenDevBST::Node* currentNode)
 /*Deletes a leaf node from the BST if it exists*/
 void BallenDevBST::remove(int key)
 {
+	Node* nodeToDelete = NULL;
+	Node* currentNode = NULL;
 	
+	//Removing the root
+	if(root && root->key == key)
+	{
+		nodeToDelete = root;
+		root = root->right;
+		currentNode = root;
+		
+		while(currentNode->left)
+			currentNode = currentNode->left;
+		
+		currentNode->left = nodeToDelete->left;
+		
+		delete nodeToDelete;
+		
+		std::cout << "\nRoot node deleted.\n\n";
+	}
+	else
+		std::cout << "\nCannot delete anything other than the root at this point.\n\n";
 }
 
 /*Traverses the BST and displays each leaf node following the in-order approach: left, process, right*/
