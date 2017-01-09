@@ -61,23 +61,44 @@ void BallenDevBST::remove(int key)
 	Node* currentNode = NULL;
 	
 	//Removing the root
-	if(root && root->key == key)
+	if(root)
 	{
-		nodeToDelete = root;
-		root = root->right;
-		currentNode = root;
-		
-		while(currentNode->left)
-			currentNode = currentNode->left;
-		
-		currentNode->left = nodeToDelete->left;
-		
-		delete nodeToDelete;
-		
-		std::cout << "\nRoot node deleted.\n\n";
+		if(root->key == key)
+		{
+			nodeToDelete = root;
+			root = root->right;
+			currentNode = root;
+			
+			while(currentNode->left)
+				currentNode = currentNode->left;
+			
+			currentNode->left = nodeToDelete->left;
+			
+			delete nodeToDelete;
+			
+			std::cout << "\nRoot node deleted.\n\n";
+		}
+		//Call the recursive definition of the remove method to search for the node to delete and delete it
+		else
+			remove(key, root);
 	}
 	else
-		std::cout << "\nCannot delete anything other than the root at this point.\n\n";
+		std::cout << "\nNo nodes to be deleted.\n\n";
+}
+
+/*Recursive overload of the remove method to find the node to be deleted and delete it*/
+void BallenDevBST::remove(int key, BallenDevBST::Node* currentNode)
+{
+	if(key > currentNode->key && currentNode->right)
+		remove(key, currentNode->right);
+	
+	if(key < currentNode->key && currentNode->left)
+		remove(key, currentNode->left);
+	
+	if(key == currentNode->key)
+	{
+		std::cout << "\nFound leaf node to be deleted with key " << key << " at address location: " << currentNode << "\n\n";		
+	}
 }
 
 /*Traverses the BST and displays each leaf node following the in-order approach: left, process, right*/

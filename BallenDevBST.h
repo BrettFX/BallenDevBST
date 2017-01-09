@@ -25,16 +25,19 @@ class BallenDevBST
 		
 		Node* root;
 		
-		/*Recursive override of the insertLeaf method to find the correct location to insert a node*/
+		/*Recursive overload of the insertLeaf method to find the correct location to insert a node*/
 		void insertLeaf(int key, Node* currentNode);
 		
-		/*Recursive override of the in-order traversal method*/
+		/*Recursive overload of the remove method to find the node to be deleted and delete it*/
+		void remove(int key, Node* currentNode);
+		
+		/*Recursive overload of the in-order traversal method*/
 		void inOrder(Node* currentNode);
 		
-		/*Recursive override of the pre-order traversal method*/
+		/*Recursive overload of the pre-order traversal method*/
 		void preOrder(Node* currentNode);
 		
-		/*Recursive override of the post-order traversal method*/
+		/*Recursive overload of the post-order traversal method*/
 		void postOrder(Node* currentNode, Mode mode);
 		
 	public:

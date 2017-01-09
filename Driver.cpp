@@ -63,7 +63,7 @@ void renderChoice(int choice, BallenDevBST& bst)
 	switch(choice)
 	{
 		case INSERT:
-			cout << "Enter key for leaf node to be inserted: ";
+			cout << "\nEnter key for leaf node to be inserted: ";
 			cin >> input;
 			bst.insertLeaf(input);
 			break;
@@ -76,18 +76,21 @@ void renderChoice(int choice, BallenDevBST& bst)
 			break;
 			
 		case IN_ORDER:
-			cout << "In-Order: ";
+			cout << "\nIn-Order: ";
 			bst.inOrder();
+			cout << "\n";
 			break;
 			
 		case PRE_ORDER:
-			cout << "Pre-Order: ";
+			cout << "\nPre-Order: ";
 			bst.preOrder();
+			cout << "\n";
 			break;
 			
 		case POST_ORDER:
-			cout << "Post-Order: ";
+			cout << "\nPost-Order: ";
 			bst.postOrder();
+			cout << "\n";
 			break;
 	}
 }
