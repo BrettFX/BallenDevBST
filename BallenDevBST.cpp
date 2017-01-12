@@ -70,6 +70,9 @@ void BallenDevBST::remove(int key)
 	Node* currentNode = NULL;
 	Node* parentNode = NULL;
 	
+	bool isRightNode = false;
+	bool isLeftNode = false;
+	
 	//Removing the root
 	if(root)
 	{
@@ -94,20 +97,38 @@ void BallenDevBST::remove(int key)
 			nodeToDelete = findNode(key, root);
 			
 			if(nodeToDelete)
-			{
+			{	
+				//Implicitly cast the value of nodeToDelete left and right children to a bool to xor them and determine the number of existing children
+				isLeftNode = nodeToDelete->left;
+				isRightNode = nodeToDelete->right;
+		
 				std::cout << "\nThe node is located at address location: " << nodeToDelete << "\n";		
-
+				
 				//Get the parentNode
 				parentNode = getParent(nodeToDelete);
 				
-				if(parentNode->right == nodeToDelete)
-					parentNode->right =  NULL;
-				else if(parentNode->left == nodeToDelete)
-					parentNode->left = NULL;
+				//(1) No children
+				if(!nodeToDelete->left && !nodeToDelete->right)
+				{
+					if(parentNode->right == nodeToDelete)
+						parentNode->right =  NULL;
+					else if(parentNode->left == nodeToDelete)
+						parentNode->left = NULL;
+					
+					delete nodeToDelete;
 				
-				delete nodeToDelete;
-				
-				std::cout << "Node deleted.\n\n";
+					std::cout << "Node deleted.\n\n";
+				}
+				//(2) One child (xor right and left child to make sure only one child exists)
+				else if(isRightNode ^ isLeftNode)
+				{
+					std::cout << "Cannot delete because one child exists.\n\n";
+				}
+				//(3) Two children exist
+				else if(nodeToDelete-> right && nodeToDelete->left)
+				{
+					std::cout << "Cannot delete because two children exist.\n\n";
+				}									
 			}
 			else
 				std::cout << "\nCould not find the node with a matching key.\n\n";
