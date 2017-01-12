@@ -40,6 +40,12 @@ class BallenDevBST
 		/*Recursive overload of the post-order traversal method*/
 		void postOrder(Node* currentNode, Mode mode);
 		
+		/*Traverses the BST and returns the node with a matching key*/
+		Node* findNode(int key, Node* currentNode);
+		
+		/*Returns the parent of the child in question*/
+		Node* getParent(Node* child);
+		
 	public:
 		BallenDevBST();
 		

@@ -68,6 +68,7 @@ void BallenDevBST::remove(int key)
 {
 	Node* nodeToDelete = NULL;
 	Node* currentNode = NULL;
+	Node* parentNode = NULL;
 	
 	//Removing the root
 	if(root)
@@ -87,15 +88,25 @@ void BallenDevBST::remove(int key)
 			
 			std::cout << "\nRoot node deleted.\n\n";
 		}
-		//Call the recursive definition of the remove method to search for the node to delete and delete it
+		//Search for the node to delete and delete it
 		else
 		{
-			nodeToDelete = remove(key, root);
+			nodeToDelete = findNode(key, root);
 			
 			if(nodeToDelete)
 			{
-				std::cout << "\nThe node is located at address location: " << nodeToDelete << "\n";				
-				//delete nodeToDelete;
+				std::cout << "\nThe node is located at address location: " << nodeToDelete << "\n";		
+
+				//Get the parentNode
+				parentNode = getParent(nodeToDelete);
+				
+				if(parentNode->right == nodeToDelete)
+					parentNode->right =  NULL;
+				else if(parentNode->left == nodeToDelete)
+					parentNode->left = NULL;
+				
+				delete nodeToDelete;
+				
 				std::cout << "Node deleted.\n\n";
 			}
 			else
@@ -108,30 +119,42 @@ void BallenDevBST::remove(int key)
 
 /*Recursive overload of the remove method to find the node to be deleted and delete it*/
 BallenDevBST::Node* BallenDevBST::remove(int key, BallenDevBST::Node* currentNode)
+{	
+	return NULL;
+}
+
+/*Traverses the BST and returns the node with a matching key*/
+BallenDevBST::Node* BallenDevBST::findNode(int key, BallenDevBST::Node* currentNode)
 {
 	if(key > currentNode->key && currentNode->right)
-		return remove(key, currentNode->right);
+		return findNode(key, currentNode->right);
 	
 	if(key < currentNode->key && currentNode->left)
-		return remove(key, currentNode->left);
+		return findNode(key, currentNode->left);
 	
 	if(key == currentNode->key)
-	{
-		std::cout << "\nFound leaf node to be deleted with key " << key;
-		
-		//Determine if the node has more than one child
-		//No children
-		if(!currentNode->left && !currentNode->right)
-		{
-			std::cout << "\nLeaf had no children...\n";	
+		return currentNode;
+	
+	//Return NULL if not found
+	return NULL;
+}
 
-			//Have to get the parentNode and set wichever pointer is pointing to the nodeToDelete to NULL
-			
-			return currentNode;			
-		}	
+/*Returns the parent of the child in question*/
+BallenDevBST::Node* BallenDevBST::getParent(BallenDevBST::Node* child)
+{
+	Node* currentNode = root;
+	
+	while(currentNode->left != child && currentNode->right != child)
+	{
+		//Traverse right
+		if(child->key > currentNode->key)
+			currentNode = currentNode->right;
+		//Otherwise, traverse left
+		else if(child->key < currentNode->key)
+			currentNode = currentNode->left;
 	}
 	
-	return NULL;
+	return currentNode;
 }
 
 /*Traverses the BST and displays each leaf node following the in-order approach: left, process, right*/
