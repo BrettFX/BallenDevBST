@@ -54,7 +54,16 @@ void BallenDevBST::insertLeaf(int key, BallenDevBST::Node* currentNode)
 		std::cout << "\nNo duplicates permitted.\n\n";
 }
 
-/*Deletes a leaf node from the BST if it exists*/
+/*Deletes a leaf node from the BST if it exists
+*There are three different scenarios to be handled in a BST leaf node removal algorithm.
+*Either the leaf node being removed has:
+*
+*1) No children
+*2) Only one child
+*3) Two children (most sophisticated)
+*
+*@param key a unique identifier that represents each individual node in a BST.
+**/
 void BallenDevBST::remove(int key)
 {
 	Node* nodeToDelete = NULL;
@@ -80,25 +89,49 @@ void BallenDevBST::remove(int key)
 		}
 		//Call the recursive definition of the remove method to search for the node to delete and delete it
 		else
-			remove(key, root);
+		{
+			nodeToDelete = remove(key, root);
+			
+			if(nodeToDelete)
+			{
+				std::cout << "\nThe node is located at address location: " << nodeToDelete << "\n";				
+				//delete nodeToDelete;
+				std::cout << "Node deleted.\n\n";
+			}
+			else
+				std::cout << "\nCould not find the node with a matching key.\n\n";
+		}	
 	}
 	else
 		std::cout << "\nNo nodes to be deleted.\n\n";
 }
 
 /*Recursive overload of the remove method to find the node to be deleted and delete it*/
-void BallenDevBST::remove(int key, BallenDevBST::Node* currentNode)
+BallenDevBST::Node* BallenDevBST::remove(int key, BallenDevBST::Node* currentNode)
 {
 	if(key > currentNode->key && currentNode->right)
-		remove(key, currentNode->right);
+		return remove(key, currentNode->right);
 	
 	if(key < currentNode->key && currentNode->left)
-		remove(key, currentNode->left);
+		return remove(key, currentNode->left);
 	
 	if(key == currentNode->key)
 	{
-		std::cout << "\nFound leaf node to be deleted with key " << key << " at address location: " << currentNode << "\n\n";		
+		std::cout << "\nFound leaf node to be deleted with key " << key;
+		
+		//Determine if the node has more than one child
+		//No children
+		if(!currentNode->left && !currentNode->right)
+		{
+			std::cout << "\nLeaf had no children...\n";	
+
+			//Have to get the parentNode and set wichever pointer is pointing to the nodeToDelete to NULL
+			
+			return currentNode;			
+		}	
 	}
+	
+	return NULL;
 }
 
 /*Traverses the BST and displays each leaf node following the in-order approach: left, process, right*/

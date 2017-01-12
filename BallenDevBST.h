@@ -29,7 +29,7 @@ class BallenDevBST
 		void insertLeaf(int key, Node* currentNode);
 		
 		/*Recursive overload of the remove method to find the node to be deleted and delete it*/
-		void remove(int key, Node* currentNode);
+		Node* remove(int key, Node* currentNode);
 		
 		/*Recursive overload of the in-order traversal method*/
 		void inOrder(Node* currentNode);
