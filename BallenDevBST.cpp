@@ -122,7 +122,26 @@ void BallenDevBST::remove(int key)
 				//(2) One child (xor right and left child to make sure only one child exists)
 				else if(isRightNode ^ isLeftNode)
 				{
-					std::cout << "Cannot delete because one child exists.\n\n";
+					if(parentNode->right == nodeToDelete)
+					{
+						if(nodeToDelete->right)
+							parentNode->right = nodeToDelete->right;
+						else if(nodeToDelete->left)
+							parentNode->right = nodeToDelete->left;
+					}
+					else if(parentNode->left == nodeToDelete)
+					{
+						if(nodeToDelete->right)
+							parentNode->left = nodeToDelete->right;
+						else if(nodeToDelete->left)
+							parentNode->left = nodeToDelete->left;
+					}
+					
+					//Break the link for nodeToDelete
+					nodeToDelete->left = nodeToDelete->right = NULL;
+					delete nodeToDelete;
+					
+					std::cout << "Node that had one child has been delete. BST structural integrity: Good\n\n";
 				}
 				//(3) Two children exist
 				else if(nodeToDelete-> right && nodeToDelete->left)
