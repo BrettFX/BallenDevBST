@@ -137,7 +137,7 @@ void BallenDevBST::remove(int key)
 							parentNode->left = nodeToDelete->left;
 					}
 					
-					//Break nodeToDelete out of the BST structure
+					//Break nodeToDelete out of the BST structure and delete it
 					nodeToDelete->left = nodeToDelete->right = NULL;
 					delete nodeToDelete;
 					
@@ -193,7 +193,7 @@ void BallenDevBST::remove(int key)
 							subRoot->left = nodeToDelete->left;
 					}
 					
-					//Remove the nodeToDelete from the BST
+					//Break nodeToDelete out of the BST structure and delete it
 					nodeToDelete->right = nodeToDelete->left = NULL;
 					delete nodeToDelete;
 					
@@ -317,6 +317,8 @@ void BallenDevBST::postOrder(BallenDevBST::Node* currentNode, BallenDevBST::Mode
 		std::cout << "No tree to traverse.\n";
 }
 
+/*Delete the BST by using the post order traversal method. This ensures that none of the links
+between each node will be come broken while traversing and deleting the leaf nodes from the tree*/
 BallenDevBST::~BallenDevBST()
 {
 	postOrder(root, DELETE);

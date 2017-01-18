@@ -64,6 +64,8 @@ class BallenDevBST
 		/*Traverses the BST and displays each leaf node following the post-order approach: left, right, process*/
 		void postOrder();
 		
+		/*Delete the BST by using the post order traversal method. This ensures that none of the links
+		between each node will be come broken while traversing and deleting the leaf nodes from the tree*/
 		~BallenDevBST();
 };
 
