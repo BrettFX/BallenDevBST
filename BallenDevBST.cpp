@@ -141,15 +141,63 @@ void BallenDevBST::remove(int key)
 					nodeToDelete->left = nodeToDelete->right = NULL;
 					delete nodeToDelete;
 					
-					std::cout << "Node that had one child has been delete. BST structural integrity: Good\n\n";
+					std::cout << "Node that had one child has been deleted.\n\n";
 				}
 				//(3) Two children exist
 				else if(nodeToDelete-> right && nodeToDelete->left)
 				{
 					//Points to the new subRoot that will replace the nodeToDelete (nodeToDelete's replacement node)
-					Node* subRoot = NULL;
+					Node* subRoot = nodeToDelete;
 					
-					std::cout << "Cannot delete because two children exist.\n\n";
+					Node* greatestSubRoot = NULL;
+					Node* leastSubRoot = NULL;
+					
+					//Determine which child of the parentNode is equal to the nodeToDelete
+					if(parentNode->right == nodeToDelete)
+					{
+						//Traverse nodeToDelete's left children until the last child has been found
+						while(subRoot->left)
+							subRoot = subRoot->left;
+						
+						parentNode->right = subRoot;
+						
+						if(subRoot->right)
+						{					
+							greatestSubRoot = subRoot->right;
+							
+							while(greatestSubRoot->right)
+								greatestSubRoot = greatestSubRoot->right;
+							
+							greatestSubRoot->right = nodeToDelete->right;
+						}
+						else
+							subRoot->right = nodeToDelete->right;						
+					}
+					else if(parentNode->left == nodeToDelete)
+					{
+						while(subRoot->right)
+							subRoot = subRoot->right;
+						
+						parentNode->left = subRoot;
+						
+						if(subRoot->left)
+						{
+							leastSubRoot = subRoot->left;
+							
+							while(leastSubRoot->left)
+								leastSubRoot = leastSubRoot->left;
+							
+							leastSubRoot->left = nodeToDelete->left;
+						}
+						else
+							subRoot->left = nodeToDelete->left;
+					}
+					
+					//Remove the nodeToDelete from the BST
+					nodeToDelete->right = nodeToDelete->left = NULL;
+					delete nodeToDelete;
+					
+					std::cout << "Node that had two children has been deleted.\n\n";
 				}									
 			}
 			else
@@ -158,12 +206,6 @@ void BallenDevBST::remove(int key)
 	}
 	else
 		std::cout << "\nNo nodes to be deleted.\n\n";
-}
-
-/*Recursive overload of the remove method to find the node to be deleted and delete it*/
-BallenDevBST::Node* BallenDevBST::remove(int key, BallenDevBST::Node* currentNode)
-{	
-	return NULL;
 }
 
 /*Traverses the BST and returns the node with a matching key*/
