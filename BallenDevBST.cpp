@@ -137,7 +137,7 @@ void BallenDevBST::remove(int key)
 							parentNode->left = nodeToDelete->left;
 					}
 					
-					//Break the link for nodeToDelete
+					//Break nodeToDelete out of the BST structure
 					nodeToDelete->left = nodeToDelete->right = NULL;
 					delete nodeToDelete;
 					
@@ -146,6 +146,9 @@ void BallenDevBST::remove(int key)
 				//(3) Two children exist
 				else if(nodeToDelete-> right && nodeToDelete->left)
 				{
+					//Points to the new subRoot that will replace the nodeToDelete (nodeToDelete's replacement node)
+					Node* subRoot = NULL;
+					
 					std::cout << "Cannot delete because two children exist.\n\n";
 				}									
 			}
